@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import json
 import dataset
-from apiclient.discovery import build
+from googleapiclient.discovery import build
 import time
 import plistlib
 import librosa
@@ -18,7 +18,7 @@ if not os.path.exists(downloaded_audio_folder):
 	os.makedirs(downloaded_audio_folder)
 
 # Metadata path and files
-salami_public_metadata_path = os.path.expanduser("~/Documents/repositories/") + "salami-data-public/metadata"
+salami_public_metadata_path = os.path.expanduser("~/karmetik/") + "salami-data-public/metadata"
 salami_public_metadata_file = salami_public_metadata_path + "/metadata.csv"
 salami_xml_filename = salami_public_metadata_path + "/SALAMI_iTunes_library.xml"
 codaich_info_filename = salami_public_metadata_path + "/id_index_codaich.csv"
@@ -528,7 +528,7 @@ def handle_candidate(salami_id, youtube_id, operation, onset=0, hashes=0, total_
 	candidate_list = df["candidate_youtube_ids"][index].split(" ")
 	rejects_list = df["rejected_youtube_ids"][index].split(" ")
 	matched_id = df["youtube_id"][index]
-	# temp_output_filename = "blorp.csv"
+	temp_output_filename = "blorp.csv"
 	assert youtube_id in candidate_list
 	new_candidate_list = [cand for cand in candidate_list if cand != youtube_id]
 	df.loc[index,"candidate_youtube_ids"] = " ".join(new_candidate_list).strip()

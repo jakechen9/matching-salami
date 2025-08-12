@@ -1,4 +1,5 @@
 from match_salami_files import *
+import pandas as pd
 pair_list_filename = "./salami_youtube_pairings.csv"
 df = load_matchlist()
 md = load_song_info()
@@ -30,7 +31,7 @@ remaining_ids = set(cod_ids+iso_ids) - set(matchlist.salami_id)
 remaining_ids = list(remaining_ids)
 remaining_ids.sort()
 for salami_id in remaining_ids[54:]:  # FRom 277 onwards
-	print salami_id
+	print(salami_id)
 	try:
 		prioritize_candidates(salami_id, no_longs=True, must_be_longer=True)
 		# If match not found on first pass, we can relax constraint and set no_longs=False to get more options.
@@ -42,7 +43,7 @@ for salami_id in remaining_ids[54:]:  # FRom 277 onwards
 	except (KeyboardInterrupt):
 		raise
 	except:
-		print "Error processing salami_id {0}".format(salami_id)
+		print("Error processing salami_id {0}".format(salami_id))
 
 
 matchlist = pd.DataFrame(columns=["salami_id","salami_length","youtube_id","youtube_length","coverage","coverage_percent"])
@@ -86,17 +87,17 @@ for salami_id in remaining_ids:
 	info = get_true_artist(salami_id)
 	if info[3] == "Latcho Drom Soundtrack":
 		manually_suggest_and_process(salami_id, "zVwDN-pyL8Y")
-	manually_suggest()
+	# manually_suggest()
 
 
 # Reset to original priorities to spare diff:
 for salami_id in iso_ids + cod_ids:
-	print salami_id
+	print(salami_id)
 	prioritize_candidates(salami_id, no_longs=True, must_be_longer=True)
 
 
 for salami_id in iso_ids + cod_ids:
-	print salami_id
+	print(salami_id)
 	prioritize_candidates(salami_id, no_longs=True, must_be_longer=True)
 
 
@@ -164,7 +165,7 @@ len(set.intersection(set(iso_ids),set(resolved_ids)))
 # Success across class:
 for clas in ["popular","jazz","classical","world"]:
 	clasids = list((md.salami_id[(md["class"]==clas) & (md.source=="Codaich")]).astype(int))
-	print "{0} / {1}".format(len(set.intersection(set(clasids),set(resolved_ids))), len(clasids))
+	print("{0} / {1}".format(len(set.intersection(set(clasids),set(resolved_ids))), len(clasids)))
 
 
 
@@ -176,6 +177,6 @@ plt.ion()
 next_ids = list(set.difference(set(unresolved_ids),set(ia_rwc_ids)))
 for id in next_ids[1:]:
 	if (id >= 300):
-		print id
+		print(id)
 		download_for_salami_ids([id],min_sleep_interval=60)
 		test_fingerprints_for_salami_id(id)

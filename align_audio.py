@@ -16,7 +16,7 @@ transformed_audio_folder = os.getcwd() + "/transformed_audio"
 
 # Specify location of downloaded audio
 
-downloaded_audio_folder = os.getcwd() + "/downloaded_audio"
+# downloaded_audio_folder = os.getcwd() + "/downloaded_audio"
 if not os.path.exists(downloaded_audio_folder):
 	os.makedirs(downloaded_audio_folder)
 
@@ -25,7 +25,7 @@ if not os.path.exists(transformed_audio_folder):
 
 def reshape_audio(salami_id, match_data):
 	row = {colname: match_data[colname][match_data.salami_id==salami_id].values[0]  for colname in match_data.columns}
-	input_filename = downloaded_audio_folder + "/" + str(row["youtube_id"]) + ".mp3"
+	input_filename = downloaded_audio_folder + "/" + str(row["salami_id"]) + ".mp3"
 	output_filename = transformed_audio_folder + "/" + str(row["salami_id"]) + ".mp3"
 	start_time_in_yt = row["onset_in_youtube"] - row["onset_in_salami"]
 	# = - row["time_offset"]
